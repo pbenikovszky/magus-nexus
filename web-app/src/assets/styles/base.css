@@ -1,0 +1,13 @@
+@import "./tokens.css";
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: radial-gradient(
+        circle at top,
+        var(--color-bg-gradient-top) 0,
+        #020308 55%,
+        var(--color-bg-gradient-bottom) 100%
+    );
+    color: var(--color-silver);
+}
