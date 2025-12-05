@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Member } from './member.entity';
+import { MemberEntity } from './member.entity';
 
 @Injectable()
 export class MembersService {
   constructor(
-    @InjectRepository(Member)
-    private readonly membersRepo: Repository<Member>,
+    @InjectRepository(MemberEntity)
+    private readonly membersRepo: Repository<MemberEntity>,
   ) {}
 
   findAll() {
@@ -15,19 +15,19 @@ export class MembersService {
   }
 
   findOne(id: number) {
-    return this.membersRepo.findOne({ where: { MemberId: id } });
+    return this.membersRepo.findOne({ where: { member_id: id } });
   }
 
   findByEmail(email: string) {
-    return this.membersRepo.findOne({ where: { EmailAddress: email } });
+    return this.membersRepo.findOne({ where: { email: email } });
   }
 
-  create(data: Partial<Member>) {
+  create(data: Partial<MemberEntity>) {
     const member = this.membersRepo.create(data);
     return this.membersRepo.save(member);
   }
 
-  async update(id: number, data: Partial<Member>) {
+  async update(id: number, data: Partial<MemberEntity>) {
     await this.membersRepo.update(id, data);
     return this.findOne(id);
   }

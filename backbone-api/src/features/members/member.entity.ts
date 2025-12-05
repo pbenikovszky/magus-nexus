@@ -1,28 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('Members')
-export class Member {
+@Entity({ name: 'members' })
+export class MemberEntity {
   @PrimaryGeneratedColumn()
-  MemberId: number;
+  member_id: number;
 
   @Column({ length: 30 })
-  FirstName: string;
+  first_name: string;
 
   @Column({ length: 30, nullable: true })
-  MiddleName?: string;
+  middle_name?: string;
 
   @Column({ length: 50 })
-  LastName: string;
+  last_name: string;
 
   @Column({ length: 255, unique: true })
-  EmailAddress: string;
+  email: string;
+
+  @Column({ type: 'smallint', default: 1 })
+  status: number;
+
+  @Column({ type: 'date', default: () => 'CURRENT_DATE' })
+  registration_date: string;
 
   @Column({ length: 255 })
-  Password: string; // hashed password
-
-  @Column({ type: 'tinyint', unsigned: true })
-  Status: number;
-
-  @Column({ type: 'date' })
-  DateOfRegistration: string; // or Date if you prefer
+  password_hash: string;
 }

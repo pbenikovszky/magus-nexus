@@ -1,10 +1,10 @@
-CREATE TABLE Members (
-    MemberId INT AUTO_INCREMENT PRIMARY KEY,
-    FirstName VARCHAR(30) NOT NULL,
-    MiddleName VARCHAR(30),
-    LastName VARCHAR(50) NOT NULL,
-    EmailAddress VARCHAR(255) NOT NULL,
-    Password VARCHAR(255) NOT NULL,  -- hashed password
-    Status TINYINT UNSIGNED NOT NULL,
-    DateOfRegistration DATE NOT NULL
+CREATE TABLE members (
+    member_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(30) NOT NULL,
+    middle_name VARCHAR(30),
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    status SMALLINT NOT NULL DEFAULT 1,
+    registration_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    password_hash VARCHAR(255) NOT NULL
 );

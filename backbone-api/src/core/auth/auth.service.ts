@@ -24,16 +24,16 @@ export class AuthService {
     const hashed = await bcrypt.hash(dto.Password, 10);
 
     const member = await this.membersService.create({
-      FirstName: dto.FirstName,
-      MiddleName: dto.MiddleName,
-      LastName: dto.LastName,
-      EmailAddress: dto.EmailAddress,
-      Password: hashed,
-      Status: 1, // active
-      DateOfRegistration: new Date().toISOString().slice(0, 10), // 'YYYY-MM-DD'
+      first_name: dto.FirstName,
+      middle_name: dto.MiddleName,
+      last_name: dto.LastName,
+      email: dto.EmailAddress,
+      password_hash: hashed,
+      status: 1, // active
+      registration_date: new Date().toISOString().slice(0, 10), // 'YYYY-MM-DD'
     });
 
-    const token = this.signToken(member.MemberId, member.EmailAddress);
+    const token = this.signToken(member.member_id, member.email);
     return { member, access_token: token };
   }
 
@@ -43,12 +43,12 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const ok = await bcrypt.compare(password, member.Password);
+    const ok = await bcrypt.compare(password, member.password_hash);
     if (!ok) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const token = this.signToken(member.MemberId, member.EmailAddress);
+    const token = this.signToken(member.member_id, member.email);
     return { member, access_token: token };
   }
 
